@@ -4,4 +4,3 @@
       homebrew_cask:
         name: bitwarden
         state: present
-      become: yes
