@@ -16,26 +16,28 @@ brew install ansible
 
 3. Run installers
 
-### General setup
-```bash
-ansible-pull -U https://github.com/dave-borg/mac-desktop-setup.git
-```
+    ### General setup
+    ```bash
+    ansible-pull -U https://github.com/dave-borg/mac-desktop-setup.git
+    ```
 
-### Utilities
-```bash
-ansible-pull -U https://github.com/dave-borg/mac-desktop-setup.git
-```
+    - x 
 
-### Coding
-```bash
-ansible-pull -U https://github.com/dave-borg/mac-desktop-setup.git
-```
+    ### Utilities
+    ```bash
+    ansible-pull -U https://github.com/dave-borg/mac-desktop-setup.git
+    ```
 
-### Music
+    ### Coding
+    ```bash
+    ansible-pull -U https://github.com/dave-borg/mac-desktop-setup.git
+    ```
 
-```bash
-ansible-pull -U https://github.com/dave-borg/mac-desktop-setup.git
-```
+    ### Music
+
+    ```bash
+    ansible-pull -U https://github.com/dave-borg/mac-desktop-setup.git
+    ```
 
 ## General setup and preferences
 - bash alias
