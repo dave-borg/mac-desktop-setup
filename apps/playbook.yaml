@@ -1,5 +1,9 @@
 - hosts: localhost
   tasks:
+    - name: Install geerlingguy.mac role
+        command: ansible-galaxy install geerlingguy.mac
+        warn: no
+
     - name: Install Bitwarden
       homebrew_cask:
         name: bitwarden
