@@ -1,20 +1,19 @@
 - hosts: localhost
   tasks:
-    - name: Install geerlingguy.mac role
-      ansible.builtin.command:
-        cmd: ansible-galaxy install geerlingguy.mac
-        warn: no
-
+    - name: Install dockutil
+      homebrew:
+        name: dockutil
+        state: present
+  
     - name: Install Bitwarden
       homebrew_cask:
         name: bitwarden
         state: present
 
     - name: Add Bitwarden to Dock
-      geerlingguy.mac.dock:
-        name: Bitwarden
-        path: /Applications/Bitwarden.app
-        state: present
+      command:
+        cmd: dockutil --add /Applications/Bitwarden.app
+        warn: no
 
     - name: Install Dropbox
       homebrew_cask:
