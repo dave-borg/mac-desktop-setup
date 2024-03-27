@@ -1,6 +1,15 @@
 - hosts: localhost
   tasks:
+    - name: Check if Bitwarden is installed
+      command: brew list --cask bitwarden
+      register: bitwarden_installed
+      ignore_errors: true
+
     - name: Install Bitwarden
+      command: brew install --cask bitwarden
+      when: bitwarden_installed.rc != 0
+      
+      - name: Install Bitwarden
       command: brew install --cask bitwarden
 
     - name: Install Bitwarden CLI
