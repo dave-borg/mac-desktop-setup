@@ -7,12 +7,10 @@
 
     - name: Add alias to ~/.zshrc
       ansible.builtin.lineinfile:
-        path: /Users/{{ ansible_user }}/.zshrc
+        path: ~/.zshrc
         line: 'alias l="ls -alh"'
         state: present
         create: yes
-        owner: "{{ ansible_user }}"
-        group: "{{ ansible_user }}"
         mode: '0644'  
 
     - name: Set the dock size
