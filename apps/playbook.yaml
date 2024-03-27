@@ -8,12 +8,6 @@
     - name: Install Bitwarden
       command: brew install --cask bitwarden
       when: bitwarden_installed.rc != 0
-      
-    - name: Install Bitwarden CLI
-      homebrew:
-        name: bitwarden-cli
-        state: present
-      become: yes
 
     - name: Download Adobe Creative Cloud installer
       get_url:
