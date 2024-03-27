@@ -4,3 +4,13 @@
       homebrew_cask:
         name: bitwarden
         state: present
+
+    - name: Install Dropbox
+      homebrew_cask:
+        name: dropbox
+        state: present
+
+    - name: Install Remote Desktop
+      homebrew_cask:
+        name: microsoft-remote-desktop
+        state: present
