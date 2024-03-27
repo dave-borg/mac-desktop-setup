@@ -13,7 +13,6 @@
     - name: Add Bitwarden to Dock
       command:
         cmd: dockutil --add /Applications/Bitwarden.app
-        warn: no
 
     - name: Install Dropbox
       homebrew_cask:
