@@ -1,36 +1,36 @@
-- name: Update OSX
-  ansible.builtin.command:
-    cmd: softwareupdate -ia --restart
-    warn: no
-  become: yes
-
-- name: Add alias to ~/.zshrc
-  ansible.builtin.lineinfile:
-    path: /Users/{{ ansible_user }}/.zshrc
-    line: 'alias l="ls -alh"'
-    state: present
-    create: yes
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
-    mode: '0644'  
-
-- name: Set the dock size
-  ansible.builtin.command:
-    cmd: defaults write com.apple.dock tilesize -int 16
-  become: yes
-
-- name: Enable dock magnification
-  ansible.builtin.command:
-    cmd: defaults write com.apple.dock magnification -bool true
-  become: yes
-
-- name: Set dock magnification size
-  ansible.builtin.command:
-    cmd: defaults write com.apple.dock largesize -int 86
-  become: yes
-
-- name: Set Trackpad Preferences
+- hosts: localhost
   tasks:
+    - name: Update OSX
+      ansible.builtin.command:
+        cmd: softwareupdate -ia --restart
+        warn: no
+      become: yes
+
+    - name: Add alias to ~/.zshrc
+      ansible.builtin.lineinfile:
+        path: /Users/{{ ansible_user }}/.zshrc
+        line: 'alias l="ls -alh"'
+        state: present
+        create: yes
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: '0644'  
+
+    - name: Set the dock size
+      ansible.builtin.command:
+        cmd: defaults write com.apple.dock tilesize -int 16
+      become: yes
+
+    - name: Enable dock magnification
+      ansible.builtin.command:
+        cmd: defaults write com.apple.dock magnification -bool true
+      become: yes
+
+    - name: Set dock magnification size
+      ansible.builtin.command:
+        cmd: defaults write com.apple.dock largesize -int 86
+      become: yes
+
     - name: Set Trackpad Preferences
       command: "defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad {{ item.key }} -int {{ item.value }}"
       with_dict:
