@@ -3,7 +3,6 @@
     - name: Update OSX
       ansible.builtin.command:
         cmd: softwareupdate -ia --restart
-        warn: no
       become: yes
 
     - name: Add alias to ~/.zshrc

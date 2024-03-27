@@ -18,7 +18,7 @@ brew install ansible
 
     ### General setup
     ```bash
-    ansible-pull -U https://github.com/dave-borg/mac-desktop-setup.git -d ~/mac-desktop-setup general-setup/playbook.yam
+    ansible-pull -U https://github.com/dave-borg/mac-desktop-setup.git -d /Users/dborgees/mac-desktop-setup general-setup/playbook.yaml --ask-become-pass
     ```
 
     ### Apps
