@@ -2,7 +2,6 @@
   tasks:
     - name: Install Bitwarden
       command: brew install --cask bitwarden
-      become: yes
 
     - name: Install Bitwarden CLI
       homebrew:
