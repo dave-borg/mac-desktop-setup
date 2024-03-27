@@ -14,3 +14,8 @@
       homebrew_cask:
         name: microsoft-remote-desktop
         state: present
+
+    - name: Install MS Edge Browser
+      homebrew_cask:
+        name: microsoft-edge
+        state: present
