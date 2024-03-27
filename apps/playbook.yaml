@@ -15,7 +15,43 @@
         name: microsoft-remote-desktop
         state: present
 
-    - name: Install MS Edge Browser
+    - name: Install Warp
       homebrew_cask:
-        name: microsoft-edge
+        name: warp
         state: present
+
+    - name: Install BBEdit
+      homebrew_cask:
+        name: bbedit
+        state: present
+
+    - name: Install MAS
+      homebrew:
+        name: mas
+        state: present
+
+    - name: Install NMAP
+      homebrew:
+        name: nmap
+        state: present
+
+    - name: Install ffmpeg
+      homebrew:
+        name: ffmpeg
+        state: present
+
+    - name: Install AIchat
+      homebrew:
+        name: aichat
+        state: present
+
+    - name: Install Btop
+      homebrew:
+        name: btop
+        state: present
+
+    
+
+
+    
+    
