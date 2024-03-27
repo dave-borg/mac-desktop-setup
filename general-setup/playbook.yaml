@@ -1,0 +1,60 @@
+- name: Update OSX
+  ansible.builtin.command:
+    cmd: softwareupdate -ia --restart
+    warn: no
+  become: yes
+
+- name: Add alias to ~/.zshrc
+  ansible.builtin.lineinfile:
+    path: /Users/{{ ansible_user }}/.zshrc
+    line: 'alias l="ls -alh"'
+    state: present
+    create: yes
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: '0644'  
+
+- name: Set the dock size
+  ansible.builtin.command:
+    cmd: defaults write com.apple.dock tilesize -int 16
+  become: yes
+
+- name: Enable dock magnification
+  ansible.builtin.command:
+    cmd: defaults write com.apple.dock magnification -bool true
+  become: yes
+
+- name: Set dock magnification size
+  ansible.builtin.command:
+    cmd: defaults write com.apple.dock largesize -int 86
+  become: yes
+
+- name: Set Trackpad Preferences
+  tasks:
+    - name: Set Trackpad Preferences
+      command: "defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad {{ item.key }} -int {{ item.value }}"
+      with_dict:
+        Clicking: 1
+        DragLock: 0
+        Dragging: 0
+        TrackpadCornerSecondaryClick: 0
+        TrackpadFiveFingerPinchGesture: 2
+        TrackpadFourFingerHorizSwipeGesture: 2
+        TrackpadFourFingerPinchGesture: 2
+        TrackpadFourFingerVertSwipeGesture: 2
+        TrackpadHandResting: 1
+        TrackpadHorizScroll: 1
+        TrackpadMomentumScroll: 1
+        TrackpadPinch: 1
+        TrackpadRightClick: 1
+        TrackpadRotate: 1
+        TrackpadScroll: 1
+        TrackpadThreeFingerDrag: 1
+        TrackpadThreeFingerHorizSwipeGesture: 0
+        TrackpadThreeFingerTapGesture: 0
+        TrackpadThreeFingerVertSwipeGesture: 0
+        TrackpadTwoFingerDoubleTapGesture: 1
+        TrackpadTwoFingerFromRightEdgeSwipeGesture: 3
+        USBMouseStopsTrackpad: 0
+        UserPreferences: 1
+        version: 5

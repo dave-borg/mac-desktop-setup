@@ -18,12 +18,10 @@ brew install ansible
 
     ### General setup
     ```bash
-    ansible-pull -U https://github.com/dave-borg/mac-desktop-setup.git
+    ansible-pull -U git@github.com:dave-borg/mac-desktop-setup/general-setup/playbook.yaml
     ```
 
-    - x 
-
-    ### Utilities
+    ### Apps
     ```bash
     ansible-pull -U https://github.com/dave-borg/mac-desktop-setup.git
     ```
@@ -40,9 +38,23 @@ brew install ansible
     ```
 
 ## General setup and preferences
-- bash alias
+- Update OSX
+```bash
+sudo softwareupdate -ia --restart
+```
 
-## Utilities
+- bash alias
+- dock size and magnification
+- Ranch VPN
+
+## Apps
+- Adobe Creative Cloud
+- Bitwarden
+- Dropbox
+- MS Remote Desktop
+- MS Edge
+
+
 
 ### Homebrew
 - warp
@@ -69,6 +81,9 @@ brew install ansible
 
 ## Coding
 - Xcode
+- vs code
+- Postman
+- VirtualBox
 
 ### MAS
 - Xcode
@@ -94,6 +109,8 @@ brew install ansible
 - iReal pro
 - Guitar Pro
 - iLok software
+- UA connect
+- HX Edit
 
 
 ## Homebrew Packages
