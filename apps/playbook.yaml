@@ -1,0 +1,28 @@
+- hosts: localhost
+  tasks:
+    - name: Install Bitwarden
+      homebrew_cask:
+        name: bitwarden
+        state: present
+      become: yes
+
+    - name: Install Bitwarden CLI
+      homebrew:
+        name: bitwarden-cli
+        state: present
+      become: yes
+
+    - name: Download Adobe Creative Cloud installer
+      get_url:
+        url: https://ccmdls.adobe.com/AdobeProducts/KCCC/1/osx10/ACCCx4_8_1_435.dmg
+        dest: /tmp/ACCCx4_8_1_435.dmg
+
+    - name: Mount the DMG
+      command: hdiutil attach /tmp/ACCCx4_8_1_435.dmg
+
+    - name: Install Adobe Creative Cloud
+      command: installer -pkg /Volumes/CC/Install.app/Contents/Resources/Adobe\ Creative\ Cloud\ Installer.pkg -target /
+      become: yes
+
+    - name: Unmount the DMG
+      command: hdiutil detach /Volumes/CC
