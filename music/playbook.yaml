@@ -1,0 +1,15 @@
+- hosts: localhost
+  tasks:
+    - name: Upgrade all Homebrew packages
+      homebrew:
+        upgrade_all: yes
+
+    - name: Install Logic Pro X
+      mas:
+        id: 634148309
+        state: present
+
+    - name: Install iReal Pro
+      mas:
+        id: 409035833
+        state: present

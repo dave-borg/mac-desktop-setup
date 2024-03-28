@@ -102,14 +102,10 @@ sudo softwareupdate -ia --restart
 - openjdk
 
 ## Music
-- Logic
+- Logic - 634148309
 - Logic plugins?
-- iReal pro
+- iReal pro - 409035833
 - Guitar Pro
 - iLok software
 - UA connect
 - HX Edit
-
-
-## Homebrew Packages
-
