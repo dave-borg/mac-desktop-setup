@@ -114,7 +114,7 @@
         state: present
     
     - name: Install Wireshark
-      homebrew-cask:
+      homebrew_cask:
         name: wireshark
         state: present
     
