@@ -1,5 +1,9 @@
 - hosts: localhost
   tasks:
+    - name: Upgrade all Homebrew packages
+      homebrew:
+        upgrade_all: yes
+
     - name: Install dockutil
       homebrew:
         name: dockutil
