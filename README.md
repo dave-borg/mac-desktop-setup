@@ -28,7 +28,7 @@ brew install ansible
 
     ### Coding
     ```bash
-    ansible-pull -U https://github.com/dave-borg/mac-desktop-setup.git
+    ansible-pull -U https://github.com/dave-borg/mac-desktop-setup.git -d /Users/dborgees/mac-desktop-setup coding/playbook.yaml --ask-become-pass
     ```
 
     ### Music
@@ -64,7 +64,6 @@ sudo softwareupdate -ia --restart
 - ffmpeg
 - aichat
 - btop
-- ca-certificates
 - curl
 - flac
 - gh
@@ -90,7 +89,6 @@ sudo softwareupdate -ia --restart
 
 
 ### Homebrew
-- ansible
 - git
 - vscode
 - docker

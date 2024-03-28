@@ -1,0 +1,82 @@
+- hosts: localhost
+  tasks:
+    - name: Upgrade all Homebrew packages
+      homebrew:
+        upgrade_all: yes
+
+    - name: Install Visual Studio Code
+      homebrew_cask:
+        name: visual-studio-code
+        state: present
+
+    - name: Install VirtualBox
+      homebrew_cask:
+        name: virtualbox
+        state: present
+
+    - name: Install Xcode
+      mas:
+        id: 497799835
+        state: present
+
+    - name: Install Git
+      homebrew:
+        name: git
+        state: present
+
+    - name: Install Docker
+      homebrew:
+        name: docker
+        state: present
+
+    - name: Install Docker Completion
+      homebrew:
+        name: docker-completion
+        state: present
+
+    - name: Install Docker Compose
+      homebrew:
+        name: docker-compose
+        state: present
+
+    - name: Install Docker SQLite
+      homebrew:
+        name: sqlite
+        state: present
+
+    - name: Install Docker SQLite Utils
+      homebrew:
+        name: sqlite-utils
+        state: present
+
+    - name: Install Maven
+      homebrew:
+        name: maven
+        state: present
+
+    - name: Install MYsql
+      homebrew:
+        name: mysql
+        state: present
+
+    - name: Install Node
+      homebrew:
+        name: node
+        state: present
+
+    - name: Install Java JDK
+      homebrew:
+        name: openjdk
+        state: present
+
+    - name: Install dockutil
+      homebrew:
+        name: dockutil
+        state: present
+
+    - name: Add Visual Studio Code to Dock
+      command:
+        cmd: dockutil --add /Applications/Visual\ Studio\ Code.app --replacing Visual\ Studio\ Code
+
+
+
