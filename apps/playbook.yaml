@@ -12,7 +12,7 @@
 
     - name: Add Bitwarden to Dock
       command:
-        cmd: dockutil --add /Applications/Bitwarden.app
+        cmd: dockutil --add /Applications/Bitwarden.app --replacing Bitwarden
 
     - name: Install Dropbox
       homebrew_cask:
@@ -31,7 +31,7 @@
 
     - name: Add Warp to Dock
       command:
-        cmd: dockutil --add /Applications/Warp.app
+        cmd: dockutil --add /Applications/Warp.app --replacing Warp
 
     - name: Install BBEdit
       homebrew_cask:
