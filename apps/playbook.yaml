@@ -29,6 +29,10 @@
         name: warp
         state: present
 
+    - name: Add Warp to Dock
+      command:
+        cmd: dockutil --add /Applications/Warp.app
+
     - name: Install BBEdit
       homebrew_cask:
         name: bbedit
@@ -59,8 +63,62 @@
         name: btop
         state: present
 
-    
+    - name: Install cURL
+      homebrew:
+        name: curl
+        state: present
 
+    - name: Install Flac
+      homebrew:
+        name: flac
+        state: present
 
+    - name: Install Btop
+      homebrew:
+        name: btop
+        state: present
+
+    - name: Install GitHub command line utility
+      homebrew:
+        name: gh
+        state: present
+
+    - name: Install remind
+      homebrew:
+        name: remind
+        state: present
     
+    - name: Install Htop
+      homebrew:
+        name: htop
+        state: present
     
+    - name: Install ShhPass
+      homebrew:
+        name: sshpass
+        state: present
+    
+    - name: Install Mac App Store utility
+      homebrew:
+        name: mas
+        state: present
+    
+    - name: Install wget
+      homebrew:
+        name: wget
+        state: present
+    
+    - name: Install ShhPass
+      homebrew:
+        name: sshpass
+        state: present
+    
+    - name: Install Wireshark
+      homebrew:
+        name: wireshark
+        state: present
+    
+    - name: Install YouTube downloader
+      homebrew:
+        name: yt-dlp
+        state: present
