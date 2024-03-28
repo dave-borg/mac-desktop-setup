@@ -1,0 +1,11 @@
+- hosts: localhost
+  tasks:
+    - name: Install community.general collection
+      ansible.builtin.ansible_galaxy_collection:
+        name: community.general
+        source: https://galaxy.ansible.com
+
+- import_playbook: general-setup/playbook.yaml
+- import_playbook: apps/playbook.yaml
+- import_playbook: coding/playbook.yaml
+- import_playbook: music/playbook.yaml
