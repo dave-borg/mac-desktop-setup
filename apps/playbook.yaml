@@ -37,6 +37,7 @@
       homebrew_cask:
         name: bbedit
         state: present
+        force: yes
 
     - name: Install MAS
       homebrew:
