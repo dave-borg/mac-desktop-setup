@@ -49,4 +49,5 @@ brew install ansible
     - [VocAlign](https://www.synchroarts.com/downloads#vocalign-ultra)
     - [UA Connect](https://www.uaudio.com/volt/start)
     - [LX480 Complete](https://shop.relabdevelopment.com/dashboard/orders/2803-1753-9816)
+    - [Pulsar Echorec](https://pulsar.audio/download/)
 - [Guitar Pro](https://www.guitar-pro.com/my-account)
