@@ -20,7 +20,7 @@
         state: present
 
     - name: Install Docker
-      homebrew:
+      homebrew_cask:
         name: docker
         state: present
 
