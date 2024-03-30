@@ -37,75 +37,16 @@ brew install ansible
     ansible-pull -vvv -U https://github.com/dave-borg/mac-desktop-setup.git
     ```
 
-## General setup and preferences
-- Update OSX
-```bash
-sudo softwareupdate -ia --restart
-```
+# Software to install manually
 
-- bash alias
-- dock size and magnification
-- Ranch VPN
-
-## Apps
 - Adobe Creative Cloud
-- Bitwarden
-- Dropbox
-- MS Remote Desktop
-- MS Edge
-
-
-
-### Homebrew
-- warp
-- bbedit
-- mas
-- nmap
-- ffmpeg
-- aichat
-- btop
-- curl
-- flac
-- gh
-- remind
-- htop
-- sshpass
-- mas
-- wget
-- wireshark
-- nmap
-- numpy
-- yt-dlp
-
-
-## Coding
-- Xcode
-- vs code
-- Postman
-- VirtualBox
-
-### MAS
-- Xcode
-
-
-### Homebrew
-- git
-- vscode
-- docker
-- docker-completion
-- docker-compose
-- sqlite
-- sqlite-utils
-- maven
-- mysql
-- node
-- openjdk
-
-## Music
-- Logic - 634148309
-- Logic plugins?
-- iReal pro - 409035833
-- Guitar Pro
-- iLok software
-- UA connect
-- HX Edit
+- Logic Plugins
+    - Waves Central
+    - Solid State Logic SSLEssBun Native Essentials
+    - iLok License Manager
+    - Slate Digital Connect
+    - Spitfire Audio
+    - [VocAlign](https://www.synchroarts.com/downloads#vocalign-ultra)
+    - [UA Connect](https://www.uaudio.com/volt/start)
+    - [LX480 Complete](https://shop.relabdevelopment.com/dashboard/orders/2803-1753-9816)
+- [Guitar Pro](https://www.guitar-pro.com/my-account)
