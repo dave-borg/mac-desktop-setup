@@ -18,23 +18,23 @@ brew install ansible
 
     ### General setup
     ```bash
-    ansible-pull -U https://github.com/dave-borg/mac-desktop-setup.git -d /Users/dborgees/mac-desktop-setup general-setup/playbook.yaml --ask-become-pass
+    ansible-pull -vvv -U https://github.com/dave-borg/mac-desktop-setup.git -d /Users/dborgees/mac-desktop-setup general-setup/playbook.yaml --ask-become-pass
     ```
 
     ### Apps
     ```bash
-    ansible-pull -U https://github.com/dave-borg/mac-desktop-setup.git -d /Users/dborgees/mac-desktop-setup apps/playbook.yaml --ask-become-pass
+    ansible-pull -vvv -U https://github.com/dave-borg/mac-desktop-setup.git -d /Users/dborgees/mac-desktop-setup apps/playbook.yaml --ask-become-pass
     ```
 
     ### Coding
     ```bash
-    ansible-pull -U https://github.com/dave-borg/mac-desktop-setup.git -d /Users/dborgees/mac-desktop-setup coding/playbook.yaml --ask-become-pass
+    ansible-pull -vvv -U https://github.com/dave-borg/mac-desktop-setup.git -d /Users/dborgees/mac-desktop-setup coding/playbook.yaml --ask-become-pass
     ```
 
     ### Music
 
     ```bash
-    ansible-pull -U https://github.com/dave-borg/mac-desktop-setup.git
+    ansible-pull -vvv -U https://github.com/dave-borg/mac-desktop-setup.git
     ```
 
 ## General setup and preferences
