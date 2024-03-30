@@ -28,6 +28,11 @@
         name: dropbox
         state: present
 
+    - name: Install Omni DiskSweeper
+      homebrew_cask:
+        name: omnidisksweeper
+        state: present
+
     - name: Install Remote Desktop
       homebrew_cask:
         name: microsoft-remote-desktop
