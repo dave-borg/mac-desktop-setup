@@ -126,3 +126,63 @@
       homebrew:
         name: yt-dlp
         state: present
+
+    - name: Remove Calendar from Dock
+      community.general.dock:
+        item_path: '/Applications/Calendar.app'
+        state: absent
+
+    - name: Remove Maps from Dock
+      community.general.dock:
+        item_path: '/Applications/Maps.app'
+        state: absent
+
+    - name: Remove Facetime from Dock
+      community.general.dock:
+        item_path: '/Applications/Facetime.app'
+        state: absent
+
+    - name: Remove Contacts from Dock
+      community.general.dock:
+        item_path: '/Applications/Contacts.app'
+        state: absent
+
+    - name: Remove Reminders from Dock
+      community.general.dock:
+        item_path: '/Applications/Reminders.app'
+        state: absent
+
+    - name: Remove Freeform from Dock
+      community.general.dock:
+        item_path: '/Applications/Freeform.app'
+        state: absent
+
+    - name: Remove TV from Dock
+      community.general.dock:
+        item_path: '/Applications/TV.app'
+        state: absent
+
+    - name: Remove News from Dock
+      community.general.dock:
+        item_path: '/Applications/News.app'
+        state: absent
+
+    - name: Remove Keynote from Dock
+      community.general.dock:
+        item_path: '/Applications/Keynote.app'
+        state: absent
+
+    - name: Remove Numbers from Dock
+      community.general.dock:
+        item_path: '/Applications/Numbers.app'
+        state: absent
+
+    - name: Remove Pages from Dock
+      community.general.dock:
+        item_path: '/Applications/Pages.app'
+        state: absent
+
+    - name: Remove App Store from Dock
+      community.general.dock:
+        item_path: '/Applications/App\ Store.app'
+        state: absent
