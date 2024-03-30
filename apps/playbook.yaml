@@ -3,12 +3,7 @@
     - name: Upgrade all Homebrew packages
       homebrew:
         upgrade_all: yes
-    
-    - name: Install community.general collection
-      ansible.builtin.ansible_galaxy_collection:
-        name: community.general
-        source: https://galaxy.ansible.com
-        
+
     - name: Install dockutil
       homebrew:
         name: dockutil
