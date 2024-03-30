@@ -42,7 +42,7 @@ brew install ansible
 - Adobe Creative Cloud
 - Logic Plugins
     - Waves Central
-    - Solid State Logic SSLEssBun Native Essentials
+    - [SSL Download Manager](https://solidstatelogic.com/ssl-download-manager)
     - iLok License Manager
     - Slate Digital Connect
     - Spitfire Audio
