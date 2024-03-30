@@ -9,11 +9,6 @@
         name: visual-studio-code
         state: present
 
-    - name: Install VirtualBox
-      homebrew_cask:
-        name: virtualbox
-        state: present
-
     - name: Install Xcode
       mas:
         id: 497799835
