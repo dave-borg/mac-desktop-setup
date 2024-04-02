@@ -136,3 +136,8 @@
       homebrew:
         name: yt-dlp
         state: present
+
+    - name: Install Trello
+      mas:
+        id: 1278508951
+        state: present
