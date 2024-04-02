@@ -28,6 +28,11 @@
         name: omnidisksweeper
         state: present
 
+    - name: Install Google Drive
+      homebrew_cask:
+        name: google-drive
+        state: present
+
     - name: Install Remote Desktop
       homebrew_cask:
         name: microsoft-remote-desktop
