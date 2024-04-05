@@ -39,6 +39,11 @@
         name: sqlite
         state: present
 
+    - name: Install Hugo
+      homebrew:
+        name: hugo
+        state: present
+
     - name: Install Docker SQLite Utils
       homebrew:
         name: sqlite-utils
