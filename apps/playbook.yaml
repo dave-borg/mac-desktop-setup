@@ -137,6 +137,11 @@
         name: yt-dlp
         state: present
 
+    - name: Install DaVinci Resolve
+      mas:
+	id: 571213070
+	state: present
+
     - name: Install Trello
       mas:
         id: 1278508951
