@@ -78,5 +78,7 @@
       command:
         cmd: dockutil --add /Applications/Visual\ Studio\ Code.app --replacing Visual\ Studio\ Code
 
-
-
+    - name: Install ssh-copy-id
+      homebrew:
+        name: ssh-copy-id
+        state: present

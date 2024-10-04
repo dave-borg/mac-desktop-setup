@@ -1,0 +1,155 @@
+---
+- name: Setup Docker and ifconfig on Ubuntu
+  hosts: all
+  become: yes
+  vars_files:
+    - lab.yml
+
+  tasks:
+    # Update the apt package index to ensure we have the latest information on available packages
+    - name: Update apt package index
+      apt:
+        update_cache: yes
+
+    # Update all packages on the server
+    - name: Upgrade all packages to the latest version
+      apt:
+        upgrade: dist
+
+    # Install required packages for Docker installation and network utilities
+    - name: Install required packages
+      apt:
+        name: 
+          - apt-transport-https  # Allows the use of repositories accessed via the HTTP Secure protocol
+          - ca-certificates      # Common CA certificates
+          - curl                 # Command-line tool for transferring data with URLs
+          - software-properties-common  # Provides an abstraction of the used apt repositories
+        state: present
+
+    # Add Docker's official GPG key to ensure the authenticity of the packages
+    - name: Add Docker GPG key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    # Add Docker's official repository to the apt sources list
+    - name: Add Docker repository
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
+        state: present
+
+    # Update the apt package index again to include the Docker repository
+    - name: Update apt package index after adding Docker repo
+      apt:
+        update_cache: yes
+
+    # Install Docker Community Edition (CE)
+    - name: Install Docker
+      apt:
+        name: docker-ce
+        state: present
+
+    # Install net-tools package which includes ifconfig command
+    - name: Install ifconfig
+      apt:
+        name: net-tools
+        state: present
+
+    - name: Install nmap
+      apt:
+        name: nmap
+        state: present
+
+    # Ensure the Docker service is running and enabled to start on boot
+    - name: Ensure Docker service is running
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    # Remove any existing alias for 'l' in the ~/.bashrc file
+    - name: Remove existing alias for 'l'
+      lineinfile:
+        path: /home/borg/.bashrc
+        regexp: '^alias l='
+        state: absent
+
+    # Add alias to ~/.bashrc
+    - name: Add alias to ~/.bashrc
+      lineinfile:
+        path: /home/borg/.bashrc
+        line: 'alias l="ls -lah"'
+        create: yes
+
+    # Source ~/.bashrc to apply changes
+    - name: Source /home/borg/.bashrc
+      shell: source /home/borg/.bashrc
+      args:
+        executable: /bin/bash
+
+    # Install xclip
+    - name: Install xclip
+      apt:
+        name: xclip
+        state: present
+
+    - name: Set timezone to Australian Eastern Standard Time
+      command: timedatectl set-timezone Australia/Sydney
+
+    # Ensure the Docker service is running and enabled to start on boot
+    - name: Ensure Docker service is running
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    # Install cifs-utils for mounting SMB shares
+    - name: Install cifs-utils
+      apt:
+        name: cifs-utils
+        state: present
+
+    # Create mount point directory
+    - name: Create mount point directory
+      file:
+        path: /mnt/lab-docker-config
+        state: directory
+
+    # Mount SMB share
+    - name: Mount SMB share
+      mount:
+        src: //192.168.128.74/lab-docker-config
+        path: /mnt/lab-docker-config
+        fstype: cifs
+        opts: username={{ smb_username }},password={{ smb_password }},vers=3.0
+        state: mounted
+
+    # Configure Ethernet and Wireless interfaces
+    - name: Configure network interfaces
+      copy:
+        dest: /etc/netplan/01-netcfg.yaml
+        content: |
+          network:
+            version: 2
+            ethernets:
+              eno2:
+                dhcp4: yes
+                dhcp4-overrides:
+                  route-metric: 100
+            wifis:
+              wlo1:
+                dhcp4: yes
+                dhcp4-overrides:
+                  route-metric: 200
+                access-points:
+                  {{ wifi_ssid }}:
+                    password: {{ wifi_password }}
+
+    # Apply netplan configuration
+    - name: Apply netplan configuration
+      command: netplan apply
+
+    # Bring up the Ethernet interface eno2
+    - name: Bring up Ethernet interface eno2
+      command: ip link set eno2 up
+

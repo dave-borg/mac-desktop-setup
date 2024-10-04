@@ -71,3 +71,4 @@
       community.general.dock:
         item_path: '/Applications/App\ Store.app'
         state: absent
+
