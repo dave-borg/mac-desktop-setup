@@ -4,6 +4,8 @@
   become: yes
   vars_files:
     - lab.yml
+  vars:
+    ansible_python_interpreter: /usr/bin/python3.12
 
   tasks:
     # Update the apt package index to ensure we have the latest information on available packages
@@ -16,56 +18,58 @@
       apt:
         upgrade: dist
 
+    - name: Uninstall Docker
+      apt:
+        name:
+          - docker.io
+          - docker-compose
+        state: absent
+
     # Install required packages for Docker installation and network utilities
     - name: Install required packages
       apt:
         name: 
-          - apt-transport-https  # Allows the use of repositories accessed via the HTTP Secure protocol
-          - ca-certificates      # Common CA certificates
-          - curl                 # Command-line tool for transferring data with URLs
-          - software-properties-common  # Provides an abstraction of the used apt repositories
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg
+          - lsb-release
+          - software-properties-common
+          - nmap
+          - xclip
+          - cifs-utils
+          - net-tools
+          - docker.io
+          - docker-compose
         state: present
-
-    # Add Docker's official GPG key to ensure the authenticity of the packages
-    - name: Add Docker GPG key
-      apt_key:
-        url: https://download.docker.com/linux/ubuntu/gpg
-        state: present
-
-    # Add Docker's official repository to the apt sources list
-    - name: Add Docker repository
-      apt_repository:
-        repo: deb https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
-        state: present
-
-    # Update the apt package index again to include the Docker repository
-    - name: Update apt package index after adding Docker repo
-      apt:
         update_cache: yes
 
-    # Install Docker Community Edition (CE)
-    - name: Install Docker
-      apt:
-        name: docker-ce
-        state: present
+    - name: Ensure required kernel modules are loaded
+      modprobe:
+        name: "{{ item }}"
+      with_items:
+        - overlay
+        - br_netfilter
 
-    # Install net-tools package which includes ifconfig command
-    - name: Install ifconfig
-      apt:
-        name: net-tools
-        state: present
+    - name: Stop Docker service
+      command: sudo systemctl stop docker.service
+      ignore_errors: yes
 
-    - name: Install nmap
-      apt:
-        name: nmap
-        state: present
+    - name: Stop Docker socket
+      command: sudo systemctl stop docker.socket
+      ignore_errors: yes
 
-    # Ensure the Docker service is running and enabled to start on boot
-    - name: Ensure Docker service is running
-      service:
-        name: docker
-        state: started
-        enabled: yes
+    - name: Reload systemctl
+      command: sudo systemctl daemon-reload
+      ignore_errors: yes
+
+    - name: Start Docker socket
+      command: sudo systemctl start docker.socket
+      ignore_errors: yes
+
+    - name: Start Docker service
+      command: sudo systemctl start docker.service
+      ignore_errors: yes
 
     # Remove any existing alias for 'l' in the ~/.bashrc file
     - name: Remove existing alias for 'l'
@@ -87,32 +91,18 @@
       args:
         executable: /bin/bash
 
-    # Install xclip
-    - name: Install xclip
-      apt:
-        name: xclip
-        state: present
-
     - name: Set timezone to Australian Eastern Standard Time
       command: timedatectl set-timezone Australia/Sydney
-
-    # Ensure the Docker service is running and enabled to start on boot
-    - name: Ensure Docker service is running
-      service:
-        name: docker
-        state: started
-        enabled: yes
-
-    # Install cifs-utils for mounting SMB shares
-    - name: Install cifs-utils
-      apt:
-        name: cifs-utils
-        state: present
 
     # Create mount point directory
     - name: Create mount point directory
       file:
         path: /mnt/lab-docker-config
+        state: directory
+
+    - name: Create Docker Compose directory
+      file:
+        path: /opt/docker-compose
         state: directory
 
     # Mount SMB share

@@ -1,0 +1,48 @@
+---
+- name: Setup Home infrastructure
+  hosts: all
+  become: yes
+  vars_files:
+    - home.yml
+  vars:
+    ansible_python_interpreter: /usr/bin/python3.12
+
+  tasks:
+    - name: Create mount point directory for Plex config
+      file:
+        path: /mnt/lab-docker-config/plex
+        state: directory
+
+    - name: Create docker group if it doesn't exist
+      group:
+        name: docker
+        state: present
+
+    - name: Add user to docker group
+      user:
+        name: borg  # Replace with your actual username
+        groups: docker
+        append: yes
+
+    - name: Create mount point directory for media
+      file:
+        path: "/mnt/media"
+        state: directory
+
+    - name: Mount SMB share for Plex config
+      mount:
+        src: //192.168.128.74/K-DAS/Media
+        path: /mnt/media
+        fstype: cifs
+        opts: username={{ smb_username }},password={{ smb_password }},vers=3.0
+        state: mounted
+
+    - name: Copy Docker Compose file
+      copy:
+        src: ./home-infrastructure-compose.yaml
+        dest: /opt/docker-compose/home-infrastructure-compose.yaml
+
+    - name: Start Docker Compose
+      command: docker-compose -f /opt/docker-compose/home-infrastructure-compose.yaml up -d
+      args:
+        chdir: /opt/docker-compose

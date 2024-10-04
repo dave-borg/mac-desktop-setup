@@ -1,0 +1,21 @@
+version: '3'
+services:
+  plex:
+    image: linuxserver/plex
+    container_name: Plex
+    networks:
+      - home_network
+    ports:
+      - "32400:32400"  # Port mapping for Plex
+    volumes:
+      - /path/on/host/media:/media  # Update with your media path
+      - /mnt/lab_docker_config/plex:/config 
+    environment:
+      - PLEX_CLAIM=${PLEX_CLAIM}  # Update with your Plex claim token
+    restart: unless-stopped
+
+  # Add any additional home infrastructure services here
+
+networks:
+  home_network:
+    external: true

@@ -1,0 +1,15 @@
+---
+- name: Setup Docker Network
+  hosts: all
+  become: yes
+  vars:
+    ansible_python_interpreter: /usr/bin/python3.12
+
+  tasks:
+    - name: Create Docker network
+      docker_network:
+        name: home_network
+        driver: bridge
+        ipam_config:
+          - subnet: 172.16.100.0/24
+        state: present

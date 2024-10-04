@@ -1,0 +1,4 @@
+---
+- import_playbook: playbook.yaml
+- import_playbook: home-infrastructure/home-network.yml
+- import_playbook: home-infrastructure/home-infrastructure-playbook.yaml
