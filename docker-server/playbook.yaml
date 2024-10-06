@@ -8,6 +8,11 @@
     ansible_python_interpreter: /usr/bin/python3.12
 
   tasks:
+    - name: Remove malformed CUDA repository list file
+      file:
+        path: /etc/apt/sources.list.d/developer_download_nvidia_com_compute_cuda_repos_ubuntu1804_x86_64.list
+        state: absent
+
     # Update the apt package index to ensure we have the latest information on available packages
     - name: Update apt package index
       apt:
@@ -18,12 +23,12 @@
       apt:
         upgrade: dist
 
-    - name: Uninstall Docker
-      apt:
-        name:
-          - docker.io
-          - docker-compose
-        state: absent
+    # - name: Uninstall Docker
+    #   apt:
+    #     name:
+    #       - docker.io
+    #       - docker-compose
+    #     state: absent
 
     # Install required packages for Docker installation and network utilities
     - name: Install required packages
@@ -143,3 +148,52 @@
     - name: Bring up Ethernet interface eno2
       command: ip link set eno2 up
 
+    # #=========================================
+    # # Enable NVIDIA GPU persistence mode
+    # - name: Add NVIDIA PPA
+    #   apt_repository:
+    #     repo: ppa:graphics-drivers/ppa
+    #     state: present
+
+    # - name: Install NVIDIA driver
+    #   apt:
+    #     name: nvidia-driver-470
+    #     state: present
+    #   register: nvidia_driver_install
+
+    # - name: Reboot the system if NVIDIA driver was installed or updated
+    #   reboot:
+    #   when: nvidia_driver_install.changed
+
+    # - name: Add CUDA keyring
+    #   apt:
+    #     deb: "https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-keyring_1.0-1_all.deb"
+    #     state: present
+    #   tags: add_cuda_key
+
+    # - name: Add CUDA repository
+    #   apt_repository:
+    #     repo: "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64 /"
+    #     state: present
+    #   tags: add_cuda_repo
+
+    # - name: Update apt cache
+    #   apt:
+    #     update_cache: yes
+
+    # - name: Install CUDA toolkit
+    #   apt:
+    #     name: cuda
+    #     state: present
+
+    # - name: Add CUDA to PATH and LD_LIBRARY_PATH
+    #   lineinfile:
+    #     path: ~/.bashrc
+    #     line: |
+    #       export PATH=/usr/local/cuda/bin:$PATH
+    #       export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
+    #     create: yes
+    #     state: present
+
+    # - name: Source ~/.bashrc to apply changes
+    #   shell: source ~/.bashrc

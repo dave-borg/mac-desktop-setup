@@ -51,3 +51,18 @@ brew install ansible
     - [LX480 Complete](https://shop.relabdevelopment.com/dashboard/orders/2803-1753-9816)
     - [Pulsar Echorec](https://pulsar.audio/download/)
 - [Guitar Pro](https://www.guitar-pro.com/my-account)
+
+
+# Lab setup
+
+To deploy to a Ubuntu server:
+1. Add ssh key to target server:
+    ```bash
+    ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+    ssh-copy-id username@remote_host
+    ```
+2. Run the ansible playbook for the whole lab:
+    ```bash
+    cd docker-server
+    ansible-playbook -i 192.168.128.142, -u borg lab-playbook.yml --ask-become-pass --ask-vault-pass
+    ```

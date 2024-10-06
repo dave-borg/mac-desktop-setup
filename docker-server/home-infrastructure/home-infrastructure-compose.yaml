@@ -1,20 +1,50 @@
-version: '3'
+version: '3.6'
 services:
   plex:
-    image: linuxserver/plex
-    container_name: Plex
+    container_name: plex
+    image: plexinc/pms-docker
+    restart: unless-stopped
+    ports:
+      - 32400:32400/tcp
+      - 8324:8324/tcp
+      - 32469:32469/tcp
+      - 1900:1900/udp
+      - 32410:32410/udp
+      - 32412:32412/udp
+      - 32413:32413/udp
+      - 32414:32414/udp
+    environment:
+      - TZ=Australia/Melbourne
+      - PLEX_CLAIM=${PLEX_CLAIM}
+      - ADVERTISE_IP=http://192.168.128.142:32400/
+    hostname: mariette-plex
+    volumes:
+      - /mnt/lab-docker-config-local/plex/config:/config
+      - /mnt/lab-docker-config-local/plex/transcode:/transcode
+      - /mnt/media:/data
+
+  portainer:
+    image: portainer/portainer-ce
+    container_name: Portainer
     networks:
       - home_network
     ports:
-      - "32400:32400"  # Port mapping for Plex
+      - "9000:9000"  # Port mapping for Portainer
     volumes:
-      - /path/on/host/media:/media  # Update with your media path
-      - /mnt/lab_docker_config/plex:/config 
-    environment:
-      - PLEX_CLAIM=${PLEX_CLAIM}  # Update with your Plex claim token
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /mnt/lab-docker-config/portainer:/data
     restart: unless-stopped
 
-  # Add any additional home infrastructure services here
+  heimdall:
+    image: linuxserver/heimdall
+    container_name: Heimdall
+    networks:
+      - home_network
+    ports:
+      - "8008:80"  # Port mapping for Heimdall
+    volumes:
+      - /mnt/lab-docker-config-local/heimdall:/config
+    restart: unless-stopped
 
 networks:
   home_network:

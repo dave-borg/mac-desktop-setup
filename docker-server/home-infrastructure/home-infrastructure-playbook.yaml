@@ -8,10 +8,6 @@
     ansible_python_interpreter: /usr/bin/python3.12
 
   tasks:
-    - name: Create mount point directory for Plex config
-      file:
-        path: /mnt/lab-docker-config/plex
-        state: directory
 
     - name: Create docker group if it doesn't exist
       group:
@@ -24,12 +20,21 @@
         groups: docker
         append: yes
 
+
+    #=========================================
+    # Plex Media Server
+    - name: Create mount point directory for Plex config
+      file:
+        path: /mnt/lab-docker-config-local/plex
+        state: directory
+
+
     - name: Create mount point directory for media
       file:
         path: "/mnt/media"
         state: directory
 
-    - name: Mount SMB share for Plex config
+    - name: Mount SMB share for Plex media
       mount:
         src: //192.168.128.74/K-DAS/Media
         path: /mnt/media
@@ -37,6 +42,22 @@
         opts: username={{ smb_username }},password={{ smb_password }},vers=3.0
         state: mounted
 
+    #=========================================
+    # Portainer
+    - name: Create mount point directory for Portainer config
+      file:
+        path: /mnt/lab-docker-config-local/portainer
+        state: directory
+
+    #=========================================
+    # Heimdall
+    - name: Create mount point directory for Heimdall config
+      file:
+        path: /mnt/lab-docker-config-local/heimdall
+        state: directory
+
+    #=========================================
+    # Execute the docker files
     - name: Copy Docker Compose file
       copy:
         src: ./home-infrastructure-compose.yaml
@@ -46,3 +67,10 @@
       command: docker-compose -f /opt/docker-compose/home-infrastructure-compose.yaml up -d
       args:
         chdir: /opt/docker-compose
+
+    #=========================================
+    # Cleanup
+    - name: Delete Docker Compose file from target server
+      file:
+        path: /opt/docker-compose/home-infrastructure-compose.yaml
+        state: absent
