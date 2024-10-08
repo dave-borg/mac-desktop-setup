@@ -46,6 +46,99 @@ services:
       - /mnt/lab-docker-config-local/heimdall:/config
     restart: unless-stopped
 
+  syncthing:
+    image: linuxserver/syncthing
+    container_name: syncthing
+    networks:
+      - home_network
+    ports:
+      - "8384:8384"  # Port mapping for Syncthing GUI
+      - "22000:22000"  # Port mapping for Syncthing listening port
+      - "21027:21027/udp"  # Port mapping for Syncthing discovery port
+    volumes:
+      - /mnt/lab-docker-config-local/syncthing:/config
+      - /mnt/syncthing/data:/data
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Australia/Melbourne
+    restart: unless-stopped
+
+    image: linuxserver/heimdall
+    container_name: Heimdall
+    networks:
+      - home_network
+    ports:
+      - "8008:80"  # Port mapping for Heimdall
+    volumes:
+      - /mnt/lab-docker-config-local/heimdall:/config
+    restart: unless-stopped
+
+  syncthing:
+    image: linuxserver/syncthing
+    container_name: syncthing
+    networks:
+      - home_network
+    ports:
+      - "8384:8384"  # Port mapping for Syncthing GUI
+      - "22000:22000"  # Port mapping for Syncthing listening port
+      - "21027:21027/udp"  # Port mapping for Syncthing discovery port
+    volumes:
+      - /mnt/lab-docker-config-local/syncthing:/config
+      - /mnt/syncthing/data:/data
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Australia/Melbourne
+    restart: unless-stopped
+
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: jellyfin
+    networks:
+      - home_network
+    ports:
+      - "8096:8096"  # Port mapping for Jellyfin
+    volumes:
+      - /mnt/lab-docker-config-local/jellyfin:/config
+      - /mnt/media:/media
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Australia/Melbourne
+    restart: unless-stopped
+
+  emby:
+    image: linuxserver/emby
+    container_name: emby
+    networks:
+      - home_network
+    ports:
+      - "8097:8096"  # Port mapping for Emby
+    volumes:
+      - /mnt/lab-docker-config-local/emby:/config
+      - /mnt/media:/media
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Australia/Melbourne
+    restart: unless-stopped 
+
+  foldingathome:
+    image: linuxserver/foldingathome
+    container_name: foldingathome
+    networks:
+      - home_network
+    ports:
+      - "7396:7396"  # Port mapping for Folding@home Web Control
+    volumes:
+      - /mnt/lab-docker-config-local/foldingathome:/config
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Australia/Melbourne
+    restart: unless-stopped
+
 networks:
   home_network:
     external: true
