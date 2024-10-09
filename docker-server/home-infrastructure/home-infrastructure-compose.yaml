@@ -1,4 +1,4 @@
-version: '3.6'
+version: '3.8'
 services:
   portainer:
     image: portainer/portainer-ce
@@ -88,6 +88,23 @@ services:
       - TZ=Australia/Melbourne
       - ACCOUNT_TOKEN=bfL8RbfMvec0Jveca6sQda6s4KG2W4KGICde7ICd_t8
       - MACHINE_NAME=Mariette
+    runtime: nvidia
+    restart: unless-stopped
+
+  ollama:
+    image: ollama/ollama
+    container_name: ollama
+    networks:
+      - home_network
+    ports:
+      - "11434:11434"
+    volumes:
+      - /mnt/lab-docker-config-local/ollama:/config
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Australia/Melbourne
+    runtime: nvidia
     restart: unless-stopped
 
 networks:
