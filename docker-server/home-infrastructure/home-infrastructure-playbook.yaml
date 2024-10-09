@@ -57,6 +57,27 @@
         state: directory
 
     #=========================================
+    # Jellyfin
+    - name: Create mount point directory for Jellyfin config
+      file:
+        path: /mnt/lab-docker-config-local/jellyfin
+        state: directory
+
+    #=========================================
+    # Emby
+    - name: Create mount point directory for Emby config
+      file:
+        path: /mnt/lab-docker-config-local/emby
+        state: directory
+
+    #=========================================
+    # Folding@Home
+    - name: Create mount point directory for Folding@Home config
+      file:
+        path: /mnt/lab-docker-config-local/foldingathome
+        state: directory
+
+    #=========================================
     # Execute the docker files
     - name: Copy Docker Compose file
       copy:

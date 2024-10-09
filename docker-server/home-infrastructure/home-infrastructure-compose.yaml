@@ -1,28 +1,5 @@
 version: '3.6'
 services:
-  plex:
-    container_name: plex
-    image: plexinc/pms-docker
-    restart: unless-stopped
-    ports:
-      - 32400:32400/tcp
-      - 8324:8324/tcp
-      - 32469:32469/tcp
-      - 1900:1900/udp
-      - 32410:32410/udp
-      - 32412:32412/udp
-      - 32413:32413/udp
-      - 32414:32414/udp
-    environment:
-      - TZ=Australia/Melbourne
-      - PLEX_CLAIM=${PLEX_CLAIM}
-      - ADVERTISE_IP=http://192.168.128.142:32400/
-    hostname: mariette-plex
-    volumes:
-      - /mnt/lab-docker-config-local/plex/config:/config
-      - /mnt/lab-docker-config-local/plex/transcode:/transcode
-      - /mnt/media:/data
-
   portainer:
     image: portainer/portainer-ce
     container_name: Portainer
@@ -36,34 +13,6 @@ services:
     restart: unless-stopped
 
   heimdall:
-    image: linuxserver/heimdall
-    container_name: Heimdall
-    networks:
-      - home_network
-    ports:
-      - "8008:80"  # Port mapping for Heimdall
-    volumes:
-      - /mnt/lab-docker-config-local/heimdall:/config
-    restart: unless-stopped
-
-  syncthing:
-    image: linuxserver/syncthing
-    container_name: syncthing
-    networks:
-      - home_network
-    ports:
-      - "8384:8384"  # Port mapping for Syncthing GUI
-      - "22000:22000"  # Port mapping for Syncthing listening port
-      - "21027:21027/udp"  # Port mapping for Syncthing discovery port
-    volumes:
-      - /mnt/lab-docker-config-local/syncthing:/config
-      - /mnt/syncthing/data:/data
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Australia/Melbourne
-    restart: unless-stopped
-
     image: linuxserver/heimdall
     container_name: Heimdall
     networks:
@@ -137,6 +86,8 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Australia/Melbourne
+      - ACCOUNT_TOKEN=bfL8RbfMvec0Jveca6sQda6s4KG2W4KGICde7ICd_t8
+      - MACHINE_NAME=Mariette
     restart: unless-stopped
 
 networks:

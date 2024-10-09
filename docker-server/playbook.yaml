@@ -150,32 +150,32 @@
 
     # #=========================================
     # # Enable NVIDIA GPU persistence mode
-    - name: Add NVIDIA PPA
-      apt_repository:
-        repo: ppa:graphics-drivers/ppa
-        state: present
+    # - name: Add NVIDIA PPA
+    #   apt_repository:
+    #     repo: ppa:graphics-drivers/ppa
+    #     state: present
 
-    - name: Install NVIDIA driver
-      apt:
-        name: nvidia-driver-470
-        state: present
-      register: nvidia_driver_install
+    # - name: Install NVIDIA driver
+    #   apt:
+    #     name: nvidia-driver-470
+    #     state: present
+    #   register: nvidia_driver_install
 
-    - name: Reboot the system if NVIDIA driver was installed or updated
-      reboot:
-      when: nvidia_driver_install.changed
+    # - name: Reboot the system if NVIDIA driver was installed or updated
+    #   reboot:
+    #   when: nvidia_driver_install.changed
 
-    - name: Add CUDA keyring
-      apt:
-        deb: "https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-keyring_1.0-1_all.deb"
-        state: present
-      tags: add_cuda_key
+    # - name: Add CUDA keyring
+    #   apt:
+    #     deb: "https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-keyring_1.0-1_all.deb"
+    #     state: present
+    #   tags: add_cuda_key
 
-    - name: Add CUDA repository
-      apt_repository:
-        repo: "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64 /"
-        state: present
-      tags: add_cuda_repo
+    # - name: Add CUDA repository
+    #   apt_repository:
+    #     repo: "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64 /"
+    #     state: present
+    #   tags: add_cuda_repo
 
     # - name: Update apt cache
     #   apt:

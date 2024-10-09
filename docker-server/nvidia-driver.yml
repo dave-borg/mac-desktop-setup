@@ -1,0 +1,106 @@
+- hosts: all
+  become: true
+  vars:
+    nvidia_driver_version: 535
+    ansible_python_interpreter: /usr/bin/python3.12
+
+  tasks:
+    - name: Install required dependencies for adding repositories
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg
+          - software-properties-common
+        state: present
+        update_cache: yes
+
+    - name: Add the graphics drivers PPA
+      apt_repository:
+        repo: ppa:graphics-drivers/ppa
+        state: present
+        update_cache: yes
+
+    - name: Uninstall NVIDIA driver (if necessary)
+      apt:
+        name: "nvidia-driver-{{ nvidia_driver_version }}"
+        state: absent
+      ignore_errors: yes
+
+    - name: Install NVIDIA driver
+      apt:
+        name: "nvidia-driver-{{ nvidia_driver_version }}"
+        state: present
+      register: nvidia_driver_install
+
+    # Uncomment the following tasks if you wish to reboot automatically after driver installation
+    # - name: Reboot if NVIDIA driver was installed
+    #   reboot:
+    #     msg: "Rebooting to load NVIDIA drivers"
+    #   when: nvidia_driver_install.changed
+    #
+    # - name: Wait for the server to come back online
+    #   wait_for_connection:
+    #     timeout: 300
+
+    - name: Add NVIDIA's GPG key
+      apt_key:
+        url: https://nvidia.github.io/nvidia-docker/gpgkey
+        state: present
+
+    - name: Set distribution variable to Ubuntu 22.04
+      set_fact:
+        distribution_name: "ubuntu22.04"
+
+    - name: Debug distribution variable
+      debug:
+        msg: "Distribution is set to: {{ distribution_name }}"
+
+    - name: Add NVIDIA Docker repository using Ubuntu 22.04 repository
+      shell: |
+        distribution={{ distribution_name }}
+        curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | \
+          tee /etc/apt/sources.list.d/nvidia-docker.list
+      args:
+        executable: /bin/bash
+
+    - name: Display NVIDIA Docker repository file
+      shell: cat /etc/apt/sources.list.d/nvidia-docker.list
+      register: nvidia_docker_repo
+      args:
+        executable: /bin/bash
+
+    - name: Show NVIDIA Docker repository content
+      debug:
+        var: nvidia_docker_repo.stdout_lines
+
+    - name: Update apt cache after adding NVIDIA repo
+      apt:
+        update_cache: yes
+
+    - name: Install NVIDIA Container Toolkit
+      apt:
+        name: nvidia-container-toolkit
+        state: present
+
+    - name: Configure NVIDIA Container Toolkit
+      shell: |
+        sudo nvidia-ctk runtime configure --runtime=docker
+      args:
+        creates: /etc/docker/daemon.json
+
+    - name: Restart Docker daemon
+      systemd:
+        name: docker
+        state: restarted
+
+    - name: Test nvidia-smi inside Docker container
+      shell: docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
+      register: nvidia_smi_output
+      failed_when: nvidia_smi_output.rc != 0
+      ignore_errors: yes
+
+    - name: Display nvidia-smi output
+      debug:
+        var: nvidia_smi_output.stdout_lines
