@@ -93,7 +93,6 @@ services:
       - NVIDIA_DRIVER_CAPABILITIES=compute,utility  # Required capabilities
     devices:
       - /dev/nvidia0:/dev/nvidia0
-      - /dev/nvidia-caps:/dev/nvidia-caps
       - /dev/nvidiactl:/dev/nvidiactl
       - /dev/nvidia-modeset:/dev/nvidia-modeset
       - /dev/nvidia-uvm:/dev/nvidia-uvm
@@ -117,7 +116,6 @@ services:
       - TZ=Australia/Melbourne
     devices:
       - /dev/nvidia0:/dev/nvidia0
-      - /dev/nvidia-caps:/dev/nvidia-caps
       - /dev/nvidiactl:/dev/nvidiactl
       - /dev/nvidia-modeset:/dev/nvidia-modeset
       - /dev/nvidia-uvm:/dev/nvidia-uvm
