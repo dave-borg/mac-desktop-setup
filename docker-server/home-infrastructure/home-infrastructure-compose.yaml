@@ -135,7 +135,7 @@ services:
     environment:
     # Adjust for your environment
       - STORAGE_DIR=/app/server/storage
-      - JWT_SECRET="G7Ez$wmD6z&$%mX^X!VyeKuAisMifh"
+      - JWT_SECRET="G7EzwmD6zmXXVyeKuAisMifhmD6zmX"
       - LLM_PROVIDER=ollama
       - OLLAMA_BASE_PATH=http://172.16.100.4:11434
       - OLLAMA_MODEL_PREF=llama3.1
