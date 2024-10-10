@@ -78,6 +78,13 @@
         state: directory
 
     #=========================================
+    # AnythingLLM
+    - name: Create mount point directory for AnythingLLM@Home config
+      file:
+        path:  /mnt/lab-docker-config-local/anythingllm
+        state: directory
+
+    #=========================================
     # Execute the docker files
     - name: Copy Docker Compose file
       copy:

@@ -126,6 +126,8 @@ services:
   anythingllm:
     image: mintplexlabs/anythingllm
     container_name: anythingllm
+    networks:
+      - home_network
     ports:
     - "3001:3001"
     cap_add:
