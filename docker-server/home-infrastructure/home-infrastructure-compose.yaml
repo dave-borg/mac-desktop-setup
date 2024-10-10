@@ -88,6 +88,16 @@ services:
       - TZ=Australia/Melbourne
       - ACCOUNT_TOKEN=bfL8RbfMvec0Jveca6sQda6s4KG2W4KGICde7ICd_t8
       - MACHINE_NAME=Mariette
+      - GPU=true  # Enable GPU folding
+      - NVIDIA_VISIBLE_DEVICES=all  # Make all GPUs visible
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility  # Required capabilities
+    devices:
+      - /dev/nvidia0:/dev/nvidia0
+      - /dev/nvidia-caps:/dev/nvidia-caps
+      - /dev/nvidiactl:/dev/nvidiactl
+      - /dev/nvidia-modeset:/dev/nvidia-modeset
+      - /dev/nvidia-uvm:/dev/nvidia-uvm
+      - /dev/nvidia-uvm-tools:/dev/nvidia-uvm-tools
     runtime: nvidia
     restart: unless-stopped
 
@@ -100,11 +110,34 @@ services:
       - "11434:11434"
     volumes:
       - /mnt/lab-docker-config-local/ollama:/config
+      - /mnt/lab-docker-config-local/ollama-models:/root/.ollama
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=Australia/Melbourne
+    devices:
+      - /dev/nvidia0:/dev/nvidia0
+      - /dev/nvidia-caps:/dev/nvidia-caps
+      - /dev/nvidiactl:/dev/nvidiactl
+      - /dev/nvidia-modeset:/dev/nvidia-modeset
+      - /dev/nvidia-uvm:/dev/nvidia-uvm
+      - /dev/nvidia-uvm-tools:/dev/nvidia-uvm-tools
     runtime: nvidia
+    restart: unless-stopped
+
+  open-webui:
+    image: ollama/open-webui
+    container_name: open-webui
+    networks:
+      - home_network
+    ports:
+      - "8080:8080"  # Adjust the port as needed
+    volumes:
+      - /mnt/lab-docker-config-local/open-webui:/config
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Australia/Melbourne
     restart: unless-stopped
 
 networks:
